@@ -10,7 +10,7 @@ spec:
     - default: var_urlRepoGit
       name: GIT_REPO
       type: string
-    - default: dev
+    - default: main
       name: GIT_REVISION
       type: string
     - default: var_rutaImagen
