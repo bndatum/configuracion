@@ -23,7 +23,7 @@ spec:
           - name: GIT_REPO
             value: var_urlRepoGit
           - name: GIT_REVISION
-            value: dev
+            value: main
           - name: IMAGE_NAME
             value: var_nombreImagen
           - name: PATH_CONTEXT
