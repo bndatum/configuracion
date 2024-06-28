@@ -19,7 +19,7 @@ spec:
     - default: .
       name: PATH_CONTEXT
       type: string
-    - default: openjdk-11:1.18-2
+    - default: openjdk-17-ubi8
       name: VERSION
       type: string
   tasks:
