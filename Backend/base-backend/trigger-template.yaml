@@ -1,0 +1,45 @@
+#TriggerTemplate
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: var_nombreTriggerTemplate
+spec:
+  params:
+    - name: git-revision
+    - name: git-commit-message
+    - name: git-repo-url
+    - name: git-repo-name
+    - name: pusher-name
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: var_nombreApp-
+        namespace: var_nombreNamespace
+      spec:
+        params:
+          - name: APP_NAME
+            value: var_nombreApp
+          - name: GIT_REPO
+            value: var_urlRepoGit
+          - name: GIT_REVISION
+            value: dev
+          - name: IMAGE_NAME
+            value: var_nombreImagen
+          - name: PATH_CONTEXT
+            value: .
+          - name: VERSION
+            value: openjdk-11:1.18-2
+        pipelineRef:
+          name: var_nombrePipeline
+        resources: []
+        status: null
+        workspaces:
+          - name: workspace
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteOnce 
+                resources:
+                  requests:
+                    storage: 1Gi

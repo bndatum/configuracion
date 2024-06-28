@@ -1,0 +1,19 @@
+source:
+  kind: DeploymentConfig
+  name: desa-datum-prueba
+  fieldPath: metadata.name 
+targets:
+  #Pipeline
+  - select:
+      kind: Pipeline
+    fieldPath: metadata.name   
+  #Route
+  - select:
+      kind: Route
+      name: var_nombreRuta
+    fieldPath: metadata.name
+  #Route
+  - select:
+      kind: Service
+      name: var_nombreService
+    fieldPath: metadata.name

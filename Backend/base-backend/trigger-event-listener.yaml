@@ -1,0 +1,13 @@
+#Eventlistener
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: var_nombreEventListener
+spec:
+  serviceAccountName: pipeline
+  triggers:
+    - bindings:
+        - kind: ClusterTriggerBinding
+          ref: gitlab-push
+      template:
+        ref: var_nombreTriggerTemplate

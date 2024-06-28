@@ -1,0 +1,20 @@
+#ServiceTrigger
+#Service
+kind: Service
+apiVersion: v1
+metadata:
+  name: var_nombreServiceTrigger
+spec:
+  ports:
+    - name: http-listener
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: http-metrics
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+  selector:
+    app.kubernetes.io/managed-by: EventListener
+    app.kubernetes.io/part-of: Triggers
+    eventlistener: var_nombreEventListener

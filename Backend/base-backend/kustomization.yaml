@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization 
+
+#Establecer los archivos que se verán afectados
+resources:
+  - deploymentconfig.yaml
+  - pipeline.yaml
+  - pod-disruption-budgets.yaml
+  - route.yaml
+  - service.yaml
+  - trigger-event-listener.yaml
+  - trigger-route.yaml
+  - trigger-svc.yaml
+  - trigger-template.yaml
+
+#Establecer un namespace comun
+namespace: desa-datum-prueba
+

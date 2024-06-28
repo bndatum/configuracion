@@ -1,0 +1,188 @@
+
+resources:
+- ../../base-backend
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+ 
+replacements:
+  - path: replacement.yaml
+#Establecer el nombre de la imagen del DeploymentConfig
+images:
+  - name: var_nombreImagen
+    newName: image-registry.openshift-image-registry.svc:5000/desa-datum-prueba/desa-datum-prueba
+######
+#Reemplazos en los archivos Yamel
+patches:
+######
+#DeploymentConfig
+  - target:
+      kind: DeploymentConfig
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: desa-datum-prueba
+      - op: replace
+        path: /spec/template/spec/containers/0/name
+        value: desa-datum-prueba
+      - op: add
+        path: /metadata/labels
+        value: 
+          app.kubernetes.io/part-of: datum
+          app.kubernetes.io/name: java
+      - op: replace
+        path: /spec/selector/app
+        value: desa-datum-prueba
+      - op: replace
+        path: /spec/selector/deploymentconfig
+        value: desa-datum-prueba
+      - op: replace
+        path: /spec/template/metadata/labels/app
+        value: desa-datum-prueba
+      - op: replace
+        path: /spec/template/metadata/labels/deploymentconfig
+        value: desa-datum-prueba
+      - op: add
+        path: /spec/template/spec/containers/0/envFrom
+        value: 
+          - secretRef:
+              name: db-oracle-clasificadores
+    options:
+      allowNameChange: true
+######        
+#Pipeline        
+  - target:
+      kind: Pipeline
+    patch: |-
+      - op: replace
+        path: /spec/params/0/default
+        value: desa-datum-prueba
+      - op: replace
+        path: /spec/params/1/default
+        value: https://github.com/DatumHN/demo-deploy.git
+      - op: replace
+        path: /spec/params/3/default
+        value: image-registry.openshift-image-registry.svc:5000/desa-datum-prueba/desa-datum-prueba
+######        
+#PodDisruptionBudget
+  #Nombre del PDB
+  - target:
+      kind: PodDisruptionBudget
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: pdb-desa-datum-prueba
+      - op: replace
+        path: /spec/selector/matchLabels/app
+        value: desa-datum-prueba
+    options:
+      allowNameChange: true
+######
+#Route
+  #Host de la ruta
+  - target:
+      kind: Route
+      name: var_nombreRuta
+    patch: |-
+      - op: replace
+        path: /spec/host
+        value: desa-datum-prueba-desa.apps.desacont.sefin.gob.hn 
+      - op: replace
+        path: /spec/to/name
+        value: desa-datum-prueba 
+######
+#Service
+  #Selector de la app
+  - target:
+      kind: Service
+      name: var_nombreService
+    patch: |-
+      - op: replace
+        path: /spec/selector/app
+        value: desa-datum-prueba
+      - op: replace
+        path: /spec/selector/deploymentconfig
+        value: desa-datum-prueba 
+######
+#Trigger
+  ######
+#TriggerTemplate
+  #Nombre del Trigger
+  - target:
+      kind: TriggerTemplate
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: trigger-temp-desa-datum-prueba
+      - op: replace
+        path: /spec/resourcetemplates/0/metadata/generateName
+        value: desa-datum-prueba-
+      - op: replace
+        path: /spec/resourcetemplates/0/metadata/namespace
+        value: desa-datum-prueba
+      - op: replace
+        path: /spec/resourcetemplates/0/spec/params/0/value
+        value: desa-datum-prueba
+      - op: replace
+        path: /spec/resourcetemplates/0/spec/params/1/value
+        value: https://github.com/DatumHN/demo-deploy.git
+      - op: replace
+        path: /spec/resourcetemplates/0/spec/params/3/value
+        value: image-registry.openshift-image-registry.svc:5000/desa-datum-prueba/desa-datum-prueba
+      - op: replace
+        path: /spec/resourcetemplates/0/spec/pipelineRef/name
+        value: desa-datum-prueba
+    options:
+      allowNameChange: true
+######
+#EventListener
+  #Nombre del EventListener
+  - target:
+      kind: EventListener
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: event-listener-desa-datum-prueba
+      - op: replace
+        path: /spec/triggers/0/template/ref
+        value: trigger-temp-desa-datum-prueba
+      - op: add
+        path: /metadata/labels
+        value: 
+          app.kubernetes.io/instance: desa-datum-prueba-el
+    options:
+      allowNameChange: true
+######
+#Servicio Trigger
+  #Nombre del Servicio
+  - target:
+      kind: Service
+      name: var_nombreServiceTrigger
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: svc-trigger-desa-datum-prueba
+      - op: replace
+        path: /spec/selector/eventlistener
+        value: event-listener-desa-datum-prueba
+    options:
+      allowNameChange: true
+######
+#Route Trigger
+  #Nombre Ruta Trigger
+  - target:
+      kind: Route
+      name: var_nombreRutaTrigger
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: route-trigger-desa-datum-prueba
+      - op: replace
+        path: /spec/host
+        value: trigger-desa-datum-prueba-desa.apps.desacont.sefin.gob.hn 
+      - op: replace
+        path: /spec/to/name
+        value: svc-trigger-desa-datum-prueba
+    options:
+      allowNameChange: true
+

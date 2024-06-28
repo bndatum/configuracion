@@ -1,0 +1,14 @@
+#RouteTrigger
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: var_nombreRutaTrigger
+spec:
+  host: var_hostTrigger
+  to:
+    kind: Service
+    name: var_nombreService
+    weight: 100
+  port:
+    targetPort: http-listener
+  wildcardPolicy: None
