@@ -1,6 +1,6 @@
 source:
   kind: DeploymentConfig
-  name: desa-datum-prueba
+  name: api-datum-hola
   fieldPath: metadata.name 
 targets:
   #Pipeline
