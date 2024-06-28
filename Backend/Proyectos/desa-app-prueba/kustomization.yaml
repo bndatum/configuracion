@@ -81,7 +81,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/host
-        value: api-datum-hola-desa.apps.desacont.sefin.gob.hn 
+        value: desa-api-datum-hola.apps.ocp.datum.com 
       - op: replace
         path: /spec/to/name
         value: api-datum-hola 
@@ -174,7 +174,7 @@ patches:
         value: route-trigger-api-datum-hola
       - op: replace
         path: /spec/host
-        value: trigger-api-datum-hola-desa.apps.desacont.sefin.gob.hn 
+        value: trigger-desa-api-datum-hola.apps.ocp.datum.com
       - op: replace
         path: /spec/to/name
         value: svc-trigger-api-datum-hola
