@@ -14,5 +14,5 @@ resources:
   - trigger-template.yaml
 
 #Establecer un namespace comun
-namespace: desa-datum-prueba
+namespace: desa-datum-pb
 
