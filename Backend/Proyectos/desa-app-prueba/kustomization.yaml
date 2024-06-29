@@ -10,7 +10,7 @@ replacements:
 #Establecer el nombre de la imagen del DeploymentConfig
 images:
   - name: var_nombreImagen
-    newName: image-registry.openshift-image-registry.svc:5000/desa-datum-prueba/api-datum-hola
+    newName: image-registry.openshift-image-registry.svc:5000/desa-datum-pb/api-datum-hola
 ######
 #Reemplazos en los archivos Yamel
 patches:
@@ -57,7 +57,7 @@ patches:
         value: https://github.com/DatumHN/demo-deploy.git
       - op: replace
         path: /spec/params/3/default
-        value: image-registry.openshift-image-registry.svc:5000/desa-datum-prueba/api-datum-hola
+        value: image-registry.openshift-image-registry.svc:5000/desa-datum-pb/api-datum-hola
 ######        
 #PodDisruptionBudget
   #Nombre del PDB
@@ -114,7 +114,7 @@ patches:
         value: api-datum-hola-
       - op: replace
         path: /spec/resourcetemplates/0/metadata/namespace
-        value: desa-datum-prueba
+        value: desa-datum-pb
       - op: replace
         path: /spec/resourcetemplates/0/spec/params/0/value
         value: api-datum-hola
@@ -123,7 +123,7 @@ patches:
         value: https://github.com/DatumHN/demo-deploy.git
       - op: replace
         path: /spec/resourcetemplates/0/spec/params/3/value
-        value: image-registry.openshift-image-registry.svc:5000/desa-datum-prueba/api-datum-hola
+        value: image-registry.openshift-image-registry.svc:5000/desa-datum-pb/api-datum-hola
       - op: replace
         path: /spec/resourcetemplates/0/spec/pipelineRef/name
         value: api-datum-hola
