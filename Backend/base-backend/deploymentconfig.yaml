@@ -3,7 +3,7 @@ kind: DeploymentConfig
 metadata:
   name: var_nombreDeploymentConfig
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     app: var_nombreApp
     deploymentconfig: var_nombreDeploymentConfig
